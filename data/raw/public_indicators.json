@@ -1,0 +1,27 @@
+{
+  "territorio": "Distrito 4 - Region Metropolitana",
+  "periodo": "T3 2026",
+  "fuente_oficial": "Sistema Integrado de Estadisticas Territoriales y Datos Abiertos",
+  "indicadores": {
+    "inflacion_alimentos_ultimos_60d": 18.7,
+    "aumento_costo_flete_logistico_regional": 34.2,
+    "subsidio_transporte_comercial_reduccion_pct": 30.0,
+    "fondo_municipal_apoyo_pymes_presupuesto_total": 15000000,
+    "fondo_municipal_ejecucion_real_pct": 31.5,
+    "motivo_subejecucion_oficial": "Falta de proyectos formulados y dispersión en la identificación de demandas comunitarias",
+    "indice_vulnerabilidad_alimentaria_barrial": 67.8,
+    "porcentaje_comercios_no_bancarizados": 58.4
+  },
+  "programas_disponibles_no_articulados": [
+    {
+      "nombre": "Programa Microcreditos Semilla",
+      "cupos_disponibles": 45,
+      "requisito_traba": "Balance contable formal y garantia inmobiliaria"
+    },
+    {
+      "nombre": "Red de Nodos Logisticos de Proximidad",
+      "presupuesto_remanente": 4200000,
+      "estado": "Inactivo por falta de coordinacion con comerciantes"
+    }
+  ]
+}

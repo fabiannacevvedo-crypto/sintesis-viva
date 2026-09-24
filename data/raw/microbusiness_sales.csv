@@ -1,0 +1,16 @@
+semana,comercio,rubro,ventas_nominales,costo_reposicion,margen_real_pct,monto_fiado_acumulado,clientes_atendidos
+Semana 1,Panaderia La Union,Alimentos,450000,310000,31.1,85000,420
+Semana 1,Almacen Don Pepe,Almacen,380000,270000,28.9,92000,360
+Semana 1,Verduleria El Parral,Frutas/Verduras,290000,205000,29.3,41000,310
+Semana 2,Panaderia La Union,Alimentos,465000,335000,27.9,105000,410
+Semana 2,Almacen Don Pepe,Almacen,395000,298000,24.5,118000,355
+Semana 2,Verduleria El Parral,Frutas/Verduras,298000,225000,24.4,56000,305
+Semana 3,Panaderia La Union,Alimentos,478000,370000,22.5,138000,395
+Semana 3,Almacen Don Pepe,Almacen,402000,332000,17.4,149000,340
+Semana 3,Verduleria El Parral,Frutas/Verduras,305000,255000,16.3,78000,290
+Semana 4,Panaderia La Union,Alimentos,485000,420000,13.4,185000,370
+Semana 4,Almacen Don Pepe,Almacen,410000,385000,6.0,195000,315
+Semana 4,Verduleria El Parral,Frutas/Verduras,312000,299000,4.1,112000,270
+Semana 5,Panaderia La Union,Alimentos,490000,465000,5.1,235000,345
+Semana 5,Almacen Don Pepe,Almacen,415000,425000,-2.4,250000,290
+Semana 5,Verduleria El Parral,Frutas/Verduras,318000,335000,-5.3,145000,250

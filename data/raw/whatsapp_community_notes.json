@@ -1,0 +1,52 @@
+[
+  {
+    "id": "wa-001",
+    "fecha": "2026-09-18 08:30",
+    "remitente": "Dona Marta (Panaderia & Almacen La Union)",
+    "canal": "Grupo WhatsApp Comerciantes Unidos",
+    "tipo": "Audio Transcrito",
+    "contenido": "Vecinos, el camion de la harina me avisa que no llega. Dice que el flete subio un 28% por el nuevo peaje y combustible, y que el acceso sur tiene obras paradas. Si no consigo harina antes del viernes, tengo que apagar los hornos y no habra pan fresco en todo el barrio.",
+    "tono": "Alarma / Friccion",
+    "tema": "Cadena de Suministro & Logistica"
+  },
+  {
+    "id": "wa-002",
+    "fecha": "2026-09-19 14:15",
+    "remitente": "Carlos Mendoza (Taller & Fletes El Sol)",
+    "canal": "Mensaje directo a Comision Vecinal",
+    "tipo": "Texto",
+    "contenido": "Ya van 4 semanas seguidas que los repuestos basicos aumentan de un dia para el otro. Los vecinos me piden fiado para arreglar las camionetas de reparto. Si sigo fiando quiebro yo; si no fio, ellos no pueden salir a repartir la verdura ni trabajar.",
+    "tono": "Tension Financiera",
+    "tema": "Credito Informal & Liquidez"
+  },
+  {
+    "id": "wa-003",
+    "fecha": "2026-09-20 19:40",
+    "remitente": "Laura Gomez (Comedor Comunitario Los Chicos)",
+    "canal": "Grupo WhatsApp Red de Cuidados",
+    "tipo": "Audio Transcrito",
+    "contenido": "Hola a todos. Pasamos de 85 a 140 viandas diarias en solo tres semanas. Las madres nos cuentan que el dinero del jornal se les va todo en flete y verduras en el almacen de paso porque no tienen transporte publico al mercado central.",
+    "tono": "Vulnerabilidad Social",
+    "tema": "Seguridad Alimentaria & Gasto Hogar"
+  },
+  {
+    "id": "wa-004",
+    "fecha": "2026-09-21 11:05",
+    "remitente": "Esteban Ramos (Cooperativa Verduras Frescas)",
+    "canal": "Grupo WhatsApp Comerciantes Unidos",
+    "tipo": "Texto",
+    "contenido": "Tengo 2.000 kg de tomate y acelga en la quinta listos para cosechar, pero si cada verduleria va por su cuenta a buscar 5 cajones, el flete individual nos come el 42% del precio. Necesitamos juntar pedidos urgente o se pudre la mercaderia.",
+    "tono": "Oportunidad de Coordinacion",
+    "tema": "Eficiencia Colectiva & Compras Agrupadas"
+  },
+  {
+    "id": "wa-005",
+    "fecha": "2026-09-22 16:20",
+    "remitente": "Dario Perez (Farmacia Social San Cayetano)",
+    "canal": "Grupo WhatsApp Comerciantes Unidos",
+    "tipo": "Texto",
+    "contenido": "Aviso a los clientes que las droguerias ahora solo entregan contra pago anticipado. Se cayo el credito a 15 dias. No podemos financiar medicamentos cronicos a los jubilados sin un fondo de garantia comun.",
+    "tono": "Crisis de Liquidez",
+    "tema": "Salud Comunitaria & Capital de Trabajo"
+  }
+]

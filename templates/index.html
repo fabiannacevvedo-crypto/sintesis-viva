@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Síntesis Viva | Motor de Storytelling Socioeconómico y Acción Colectiva</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 500: '#10b981', 600: '#059669', 700: '#047857' },
+            accent: { cyan: '#06b6d4', amber: '#f59e0b', purple: '#8b5cf6', rose: '#f43f5e' }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/static/css/custom.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-brand-600 via-accent-cyan to-accent-purple flex items-center justify-center shadow-lg shadow-brand-500/20">
+          <i data-lucide="sparkles" class="w-6 h-6 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">SÍNTESIS VIVA</h1>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/30 font-medium">Hackathon Innovación 2026</span>
+          </div>
+          <p class="text-xs text-slate-400">Sociedad y Economía • De Información Dispersa a Inteligencia Colectiva</p>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center space-x-1 bg-slate-800/60 p-1 rounded-xl border border-slate-700/50">
+        <button onclick="switchTab('narrativa')" id="tab-btn-narrativa" class="nav-tab active-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all">
+          <i data-lucide="book-open" class="w-4 h-4"></i>
+          <span>1. Narrativa Estratégica</span>
+        </button>
+        <button onclick="switchTab('ingesta')" id="tab-btn-ingesta" class="nav-tab text-slate-400 hover:text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all">
+          <i data-lucide="database" class="w-4 h-4"></i>
+          <span>2. Ingesta Dispersa</span>
+        </button>
+        <button onclick="switchTab('grafo')" id="tab-btn-grafo" class="nav-tab text-slate-400 hover:text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all">
+          <i data-lucide="git-merge" class="w-4 h-4"></i>
+          <span>3. Grafo Causal</span>
+        </button>
+        <button onclick="switchTab('simulador')" id="tab-btn-simulador" class="nav-tab text-slate-400 hover:text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all">
+          <i data-lucide="sliders" class="w-4 h-4"></i>
+          <span>4. Simulador 'What-If'</span>
+        </button>
+        <button onclick="switchTab('exportar')" id="tab-btn-exportar" class="nav-tab text-slate-400 hover:text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>5. Exportación Polimórfica</span>
+        </button>
+      </nav>
+      <div class="flex items-center space-x-3">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-950 text-emerald-300 border border-emerald-800">
+          <span class="w-2 h-2 mr-1.5 bg-emerald-400 rounded-full animate-ping"></span>
+          Motor Causal Activo
+        </span>
+      </div>
+    </div>
+  </header>
+  <div class="md:hidden flex overflow-x-auto bg-slate-900 border-b border-slate-800 p-2 space-x-2">
+    <button onclick="switchTab('narrativa')" class="whitespace-nowrap px-3 py-1 text-xs rounded bg-slate-800 text-white">1. Narrativa</button>
+    <button onclick="switchTab('ingesta')" class="whitespace-nowrap px-3 py-1 text-xs rounded bg-slate-800 text-white">2. Ingesta</button>
+    <button onclick="switchTab('grafo')" class="whitespace-nowrap px-3 py-1 text-xs rounded bg-slate-800 text-white">3. Grafo</button>
+    <button onclick="switchTab('simulador')" class="whitespace-nowrap px-3 py-1 text-xs rounded bg-slate-800 text-white">4. Simulador</button>
+    <button onclick="switchTab('exportar')" class="whitespace-nowrap px-3 py-1 text-xs rounded bg-slate-800 text-white">5. Exportar</button>
+  </div>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- TAB 1: NARRATIVA ESTRATEGICA -->
+    <section id="view-narrativa" class="tab-content block space-y-8">
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800 p-8 shadow-2xl">
+        <div class="max-w-3xl relative z-10">
+          <span class="text-xs uppercase tracking-wider font-bold text-accent-cyan bg-cyan-950/70 border border-cyan-800 px-3 py-1 rounded-full">Metodologia de Storytelling Estrategico</span>
+          <h2 class="text-3xl font-black text-white mt-4 tracking-tight sm:text-4xl">
+            Transformando la Niebla de Datos en Soberania Comunitaria
+          </h2>
+          <p class="text-slate-300 mt-3 text-base leading-relaxed">
+            Convertimos informacion heterogenea (mensajes de WhatsApp, planillas de almacen, minutas vecinales y estadisticas oficiales) en un relato vivo que diagnostica la causa raiz y moviliza la accion colectiva.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4-Act Storytelling Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-amber-500/30 flex flex-col justify-between hover:border-amber-500/60 transition-all shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Acto 1</span>
+              <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg"><i data-lucide="flame" class="w-5 h-5"></i></div>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">El Gancho</h3>
+            <p class="text-xs text-amber-300 font-medium mb-3">Dona Marta y el Pan Invisible</p>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              A las 5:15 AM los hornos estan apagados. El flete de harina subio 28%, el fiado vecinal desborda el cuaderno, y en la web municipal hay $10.2M ARS intactos. Tres realidades desconectadas a 10 cuadras.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-amber-300 flex items-center font-semibold">
+            <i data-lucide="heart" class="w-3.5 h-3.5 mr-1.5"></i> Resonancia humana y empatia
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-rose-500/30 flex flex-col justify-between hover:border-rose-500/60 transition-all shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-rose-400 uppercase tracking-widest">Acto 2</span>
+              <div class="p-2 bg-rose-500/10 text-rose-400 rounded-lg"><i data-lucide="alert-triangle" class="w-5 h-5"></i></div>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Problema & Consecuencias</h3>
+            <p class="text-xs text-rose-300 font-medium mb-3">La Trampa de los Datos Aislados</p>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Ceguera operativa (ventas nominales suben pero margen real cae a -0.9%), paralisis por credito informal (+190% en fiado) y desaprovechamiento de recursos publicos por barreras de lenguaje contable.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-rose-300 flex items-center font-semibold">
+            <i data-lucide="trending-down" class="w-3.5 h-3.5 mr-1.5"></i> Destruccion de capital territorial
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-cyan-500/30 flex flex-col justify-between hover:border-cyan-500/60 transition-all shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest">Acto 3</span>
+              <div class="p-2 bg-cyan-500/10 text-cyan-400 rounded-lg"><i data-lucide="cpu" class="w-5 h-5"></i></div>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">La Solucion</h3>
+            <p class="text-xs text-cyan-300 font-medium mb-3">El Grafo Causal y Motor Vivo</p>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Un motor que ingesta audios de WhatsApp, CSVs y decretos, infiriendo correlaciones ocultas para orquestar compras colectivas y desbloquear subsidios publicos sin trabas de garantias.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-cyan-300 flex items-center font-semibold">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 mr-1.5"></i> Inteligencia relacional multi-fuente
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-brand-500/30 flex flex-col justify-between hover:border-brand-500/60 transition-all shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">Acto 4</span>
+              <div class="p-2 bg-brand-500/10 text-brand-400 rounded-lg"><i data-lucide="zap" class="w-5 h-5"></i></div>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">El Flujo & Cierre</h3>
+            <p class="text-xs text-brand-300 font-medium mb-3">Accion y Resiliencia en 4 Fases</p>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Ingesta ➡️ Grafo Causal ➡️ Simulacion 'What-If' ➡️ Exportacion Tri-Partita (Dossier Politico + Boletin de Audio WhatsApp + Playbook del Almacenero).
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-brand-300 flex items-center font-semibold">
+            <i data-lucide="arrow-right-circle" class="w-3.5 h-3.5 mr-1.5"></i> Llamado a la accion medible
+          </div>
+        </div>
+      </div>
+
+      <!-- Human Spotlight -->
+      <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6 md:p-8">
+        <div class="flex flex-col lg:flex-row gap-8 items-start">
+          <div class="flex-1">
+            <div class="flex items-center space-x-3 mb-4">
+              <div class="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-brand-400 text-lg">DM</div>
+              <div>
+                <h4 class="font-bold text-white text-base">Relato Central: Dona Marta y la Fragilidad Oculta</h4>
+                <p class="text-xs text-slate-400">Panaderia & Almacen La Union • 24 anos en el barrio</p>
+              </div>
+            </div>
+            <blockquote class="text-slate-300 text-sm leading-relaxed border-l-2 border-brand-500 pl-4 py-2 italic bg-slate-950/40 rounded-r-lg">
+              "No entendia por que cada semana tenia que poner mas dinero de mi bolsillo si el local estaba lleno de gente. Los numeros decian que vendia, pero el camion me cobraba el doble por venir solo a mi negocio, y mis vecinos no tenian para pagarme en efectivo. Hasta que Sintesis Viva nos mostro en una sola pantalla como nos estabamos ahogando juntos por no coordinar."
+            </blockquote>
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800">
+                <span class="text-[11px] text-slate-400">Margen Comercial Real</span>
+                <p class="text-xl font-extrabold text-rose-400 mt-1">-0.9%</p>
+                <span class="text-[10px] text-rose-500">Perdida por flete individual</span>
+              </div>
+              <div class="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800">
+                <span class="text-[11px] text-slate-400">Deuda Informal Acumulada</span>
+                <p class="text-xl font-extrabold text-amber-400 mt-1">$630,000 ARS</p>
+                <span class="text-[10px] text-amber-500">+190% en 5 semanas</span>
+              </div>
+              <div class="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800">
+                <span class="text-[11px] text-slate-400">Fondo Publico Ocioso</span>
+                <p class="text-xl font-extrabold text-brand-400 mt-1">$10.2M ARS</p>
+                <span class="text-[10px] text-brand-500">Desbloqueable colectivamente</span>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-80 bg-slate-950 p-5 rounded-xl border border-slate-800 flex flex-col justify-between">
+            <div>
+              <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center">
+                <i data-lucide="users" class="w-4 h-4 mr-1.5 text-accent-cyan"></i> A quienes afecta?
+              </h5>
+              <ul class="space-y-2 text-xs text-slate-300">
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-brand-400 mt-0.5 shrink-0"></i>
+                  <span><strong>Micro-comercios & Pymes:</strong> Quiebre silencioso por costos de reposicion.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-brand-400 mt-0.5 shrink-0"></i>
+                  <span><strong>Familias & Comedores:</strong> Alza de precios por ineficiencias logisticas.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-brand-400 mt-0.5 shrink-0"></i>
+                  <span><strong>Municipios & Gobiernos:</strong> Subejecucion y desconexion territorial.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-brand-400 mt-0.5 shrink-0"></i>
+                  <span><strong>Cooperativas:</strong> Dificultad para formular proyectos con evidencia.</span>
+                </li>
+              </ul>
+            </div>
+            <button onclick="switchTab('ingesta')" class="mt-5 w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-2 px-3 rounded-lg text-xs flex items-center justify-center space-x-2 transition-all shadow-md">
+              <span>Explorar Fuentes Ingestadas</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: INGESTA DISPERSA -->
+    <section id="view-ingesta" class="tab-content hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">Hub de Ingesta Multifuente</h2>
+          <p class="text-sm text-slate-400">Captura, normaliza y estructura 4 formatos completamente dispares del territorio.</p>
+        </div>
+        <span class="text-xs px-3 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 font-mono">
+          4 Fuentes Sincronizadas
+        </span>
+      </div>
+
+      
+      <!-- Tarjeta de Demostración En Vivo para Jurado de Hackathon -->
+      <div class="rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 border border-brand-500/40 p-6 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+          <div class="flex items-center space-x-3">
+            <div class="p-2.5 rounded-xl bg-brand-500/20 text-brand-400 border border-brand-500/30">
+              <i data-lucide="radio" class="w-5 h-5 animate-pulse"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                Demostración En Vivo: Inyectar Nueva Señal Comunitaria
+                <span class="text-[10px] px-2 py-0.5 rounded bg-brand-500/20 text-brand-300 font-mono">Prueba en Tiempo Real</span>
+              </h3>
+              <p class="text-xs text-slate-400">Simula el envío de un audio o mensaje urgente por parte de un vecino o comerciante del barrio.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-400">Ejemplos Rápidos:</span>
+            <button onclick="setLivePreset('frigorifico')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-medium transition-all">Carnicería</button>
+            <button onclick="setLivePreset('lacteos')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-medium transition-all">Lácteos</button>
+            <button onclick="setLivePreset('cooperativa')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-medium transition-all">Cooperativa</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+          <div class="md:col-span-1">
+            <input type="text" id="input-live-remitente" placeholder="Nombre del emisor / negocio" value="Don José (Carnicería Central)" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500">
+          </div>
+          <div class="md:col-span-2">
+            <input type="text" id="input-live-contenido" placeholder="Escribe el reporte territorial..." value="El frigorífico me duplicó el flete por caja. Si no compramos entre 4 carnicerías, tenemos que subir la carne 30% mañana." class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500">
+          </div>
+          <div class="md:col-span-1">
+            <button onclick="injectLiveSignal()" class="w-full h-full py-2 px-4 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center justify-center space-x-2 transition-all shadow-lg shadow-brand-600/30">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Inyectar y Ver Grafo Causal</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="rounded-xl bg-slate-900 border border-slate-800 p-5 flex flex-col">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+            <div class="flex items-center space-x-2.5">
+              <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400"><i data-lucide="message-square" class="w-5 h-5"></i></div>
+              <div>
+                <h3 class="font-bold text-sm text-white">Notas de WhatsApp y Audios</h3>
+                <span class="text-[11px] text-slate-400">Formato: JSON / Voz No Estructurada</span>
+              </div>
+            </div>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">5 Registros</span>
+          </div>
+          <div class="space-y-3 overflow-y-auto max-h-80 pr-1 text-xs" id="whatsapp-feed"></div>
+        </div>
+
+        <div class="rounded-xl bg-slate-900 border border-slate-800 p-5 flex flex-col">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+            <div class="flex items-center space-x-2.5">
+              <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400"><i data-lucide="table" class="w-5 h-5"></i></div>
+              <div>
+                <h3 class="font-bold text-sm text-white">Planillas de Caja y Ventas</h3>
+                <span class="text-[11px] text-slate-400">Formato: CSV Tabular (Semana 1 a 5)</span>
+              </div>
+            </div>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">15 Filas</span>
+          </div>
+          <div class="overflow-x-auto max-h-80 text-xs">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 bg-slate-950/60">
+                  <th class="p-2">Semana</th>
+                  <th class="p-2">Comercio</th>
+                  <th class="p-2">Ventas ($)</th>
+                  <th class="p-2">Margen</th>
+                  <th class="p-2">Fiado ($)</th>
+                </tr>
+              </thead>
+              <tbody id="csv-table-body" class="divide-y divide-slate-800/60 font-mono text-[11px]"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-slate-900 border border-slate-800 p-5 flex flex-col">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+            <div class="flex items-center space-x-2.5">
+              <div class="p-2 rounded-lg bg-purple-500/10 text-purple-400"><i data-lucide="landmark" class="w-5 h-5"></i></div>
+              <div>
+                <h3 class="font-bold text-sm text-white">Datos Abiertos & Estadisticas Publicas</h3>
+                <span class="text-[11px] text-slate-400">Formato: JSON / API Municipal y SIET</span>
+              </div>
+            </div>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300">Oficial</span>
+          </div>
+          <div class="space-y-2.5 text-xs text-slate-300">
+            <div class="flex justify-between p-2 rounded bg-slate-950/60 border border-slate-800">
+              <span class="text-slate-400">Alza Regional Flete Logistico:</span>
+              <span class="font-bold text-rose-400">+34.2%</span>
+            </div>
+            <div class="flex justify-between p-2 rounded bg-slate-950/60 border border-slate-800">
+              <span class="text-slate-400">Fondo Pyme Municipal Total:</span>
+              <span class="font-bold text-white">$15,000,000 ARS</span>
+            </div>
+            <div class="flex justify-between p-2 rounded bg-slate-950/60 border border-slate-800">
+              <span class="text-slate-400">Ejecucion Presupuestaria:</span>
+              <span class="font-bold text-amber-400">31.5% (Subejecutado)</span>
+            </div>
+            <div class="p-2.5 rounded bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400">
+              <strong class="text-slate-300">Causa Subejecucion:</strong> "Falta de proyectos formulados y dispersion comunitaria".
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-slate-900 border border-slate-800 p-5 flex flex-col">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+            <div class="flex items-center space-x-2.5">
+              <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400"><i data-lucide="file-text" class="w-5 h-5"></i></div>
+              <div>
+                <h3 class="font-bold text-sm text-white">Minutas de Asambleas Vecinales</h3>
+                <span class="text-[11px] text-slate-400">Formato: Texto Plano / Actas Barriales</span>
+              </div>
+            </div>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">Club Social</span>
+          </div>
+          <div class="p-3 bg-slate-950/80 rounded-lg border border-slate-800 font-mono text-[11px] text-slate-300 leading-relaxed overflow-y-auto max-h-52">
+            "Roberto (Ferreteria): Cada negocio compra por su cuenta fletes carisimos desde el parque industrial... Carmen (Junta Vecinal): Desarrollo Social publico fondos pero nadie supo solicitarlos... Resolucion: Se acuerda elevar nota pero no hay acuerdo sobre quien la redacta ni como demostrarlo con datos objetivos..."
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: GRAFO CAUSAL -->
+    <section id="view-grafo" class="tab-content hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">Grafo Causal de Informacion Dispersa</h2>
+          <p class="text-sm text-slate-400">Conexion de senales desconectadas para revelar cuellos de botella invisibles y palancas de accion.</p>
+        </div>
+        <span class="text-xs px-2.5 py-1 rounded bg-rose-500/20 text-rose-300 font-semibold border border-rose-500/30">
+          3 Patrones Criticos Encontrados
+        </span>
+      </div>
+
+      <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6 shadow-xl">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6 flex items-center">
+          <i data-lucide="network" class="w-4 h-4 mr-2 text-accent-cyan"></i> Mapa de Resonancia Causal Multifuente
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-[10px] uppercase font-bold text-purple-400">1. Macro Senal</span>
+            <h4 class="font-bold text-sm text-white mt-1">Alza Flete Regional</h4>
+            <p class="text-[11px] text-slate-400 mt-1">+34.2% flete y peajes.</p>
+            <div class="mt-3 text-[10px] text-slate-500 font-mono">Datos Abiertos</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-rose-900/40">
+            <span class="text-[10px] uppercase font-bold text-rose-400">2. Friccion Micro</span>
+            <h4 class="font-bold text-sm text-white mt-1">Fletes Atomizados</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Viajes individuales por pocos bultos.</p>
+            <div class="mt-3 text-[10px] text-slate-500 font-mono">WhatsApp Dona Marta</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-rose-900/60">
+            <span class="text-[10px] uppercase font-bold text-rose-400">3. Quiebre Silencioso</span>
+            <h4 class="font-bold text-sm text-white mt-1">Colapso del Margen</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Margen real cae a -0.9%.</p>
+            <div class="mt-3 text-[10px] text-slate-500 font-mono">CSV Ventas Sem 5</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-amber-900/40">
+            <span class="text-[10px] uppercase font-bold text-amber-400">4. Paralisis Social</span>
+            <h4 class="font-bold text-sm text-white mt-1">Explosion del Fiado</h4>
+            <p class="text-[11px] text-slate-400 mt-1">+190% fiado acumulado.</p>
+            <div class="mt-3 text-[10px] text-slate-500 font-mono">Taller Carlos & Almacen</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-emerald-800 bg-emerald-950/10">
+            <span class="text-[10px] uppercase font-bold text-emerald-400">5. Palanca Colectiva</span>
+            <h4 class="font-bold text-sm text-white mt-1">Compra Unificada</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Destraba $10.2M fondo municipal.</p>
+            <div class="mt-3 text-[10px] text-slate-500 font-mono">Sintesis Viva</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="insights-container"></div>
+    </section>
+
+    <!-- TAB 4: SIMULADOR WHAT-IF -->
+    <section id="view-simulador" class="tab-content hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">Simulador Socioeconomico 'What-If'</h2>
+          <p class="text-sm text-slate-400">Modifica palancas comunitarias en tiempo real y proyecta el rescate economico barrial.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6 space-y-6">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center">
+            <i data-lucide="sliders" class="w-4 h-4 mr-2 text-brand-400"></i> Palancas de Intervencion
+          </h3>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="font-medium text-slate-300">Tasa de Compra Colectiva</span>
+              <span id="label-tasa-compra" class="font-mono font-bold text-brand-400">50%</span>
+            </div>
+            <input type="range" id="slider-tasa-compra" min="0" max="100" value="50" step="5" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-500" oninput="triggerSimulation()">
+            <p class="text-[11px] text-slate-500">% comercios que unifican pedidos de mercaderia.</p>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="font-medium text-slate-300">Fondo Rotatorio de Garantia</span>
+              <span id="label-fondo-garantia" class="font-mono font-bold text-accent-cyan">$2,000,000 ARS</span>
+            </div>
+            <input type="range" id="slider-fondo-garantia" min="0" max="5000000" value="2000000" step="250000" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-accent-cyan" oninput="triggerSimulation()">
+            <p class="text-[11px] text-slate-500">Colchon solidario para desfasajes de fiado vecinal.</p>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="font-medium text-slate-300">Desbloqueo Subsidio Municipal</span>
+              <span id="label-subsidio-pct" class="font-mono font-bold text-accent-purple">60%</span>
+            </div>
+            <input type="range" id="slider-subsidio-pct" min="0" max="100" value="60" step="10" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-accent-purple" oninput="triggerSimulation()">
+            <p class="text-[11px] text-slate-500">% partidas municipales de flete activadas.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-[10px] uppercase font-bold text-slate-400">Diagnostico Predictivo</span>
+            <p id="sim-narrative-eval" class="text-xs text-slate-300 mt-2 leading-relaxed font-medium">Calculando...</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 space-y-6">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+              <span class="text-[11px] text-slate-400">Margen Proyectado</span>
+              <p id="kpi-margen" class="text-2xl font-black text-brand-400 mt-1">+16.6%</p>
+              <span class="text-[10px] text-brand-500">Recuperacion</span>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+              <span class="text-[11px] text-slate-400">Ahorro Canasta</span>
+              <p id="kpi-ahorro" class="text-2xl font-black text-accent-cyan mt-1">10.3%</p>
+              <span class="text-[10px] text-cyan-400">Menor inflacion</span>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+              <span class="text-[11px] text-slate-400">Supervivencia</span>
+              <p id="kpi-supervivencia" class="text-2xl font-black text-accent-purple mt-1">84.5%</p>
+              <span class="text-[10px] text-purple-400">Basal: 35%</span>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+              <span class="text-[11px] text-slate-400">Retorno Social</span>
+              <p id="kpi-sroi" class="text-2xl font-black text-amber-400 mt-1">2.8x</p>
+              <span class="text-[10px] text-amber-400">Por $ invertido</span>
+            </div>
+          </div>
+
+          <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-sm font-bold text-white flex items-center">
+                <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-brand-400"></i> Proyeccion Comparativa: Escenario Actual vs Simulacion Viva
+              </h4>
+              <span class="text-[11px] text-slate-500 font-mono">Reactivo</span>
+            </div>
+            <div class="h-64">
+              <canvas id="simulationChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: EXPORTACION POLIMORFICA -->
+    <section id="view-exportar" class="tab-content hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">Generador Polimorfico de Decisiones</h2>
+          <p class="text-sm text-slate-400">Convierte la misma verdad objetiva en el lenguaje exacto que necesita cada actor socioeconomico.</p>
+        </div>
+        <button onclick="loadPolymorphicArtifacts()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all shadow-md">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          <span>Regenerar con Parametros Actuales</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Para Autoridades & Bancos</span>
+              <div class="p-2 bg-purple-500/10 text-purple-400 rounded-lg"><i data-lucide="landmark" class="w-5 h-5"></i></div>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2">Dossier de Politica Publica & Fondos</h3>
+            <p class="text-xs text-slate-400 mb-4">Lenguaje tecnico, justificacion presupuestaria, S-ROI e instrumentos de credito sin trabas burocraticas.</p>
+            <div id="export-dossier-content" class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 font-mono space-y-2 max-h-72 overflow-y-auto"></div>
+          </div>
+          <button onclick="copyToClipboard('export-dossier-content')" class="mt-4 w-full py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center space-x-2 transition-all">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span>Copiar Dossier Oficial</span>
+          </button>
+        </div>
+
+        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Para Vecinos & Familias</span>
+              <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i data-lucide="message-circle" class="w-5 h-5"></i></div>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2">Boletin & Audio WhatsApp</h3>
+            <p class="text-xs text-slate-400 mb-4">Texto empatico, formato flyer y guion para audio de 1 minuto listo para reenviar a grupos vecinales.</p>
+            <div id="export-whatsapp-content" class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 font-sans space-y-2 whitespace-pre-wrap max-h-72 overflow-y-auto"></div>
+          </div>
+          <button onclick="copyToClipboard('export-whatsapp-content')" class="mt-4 w-full py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center space-x-2 transition-all">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span>Copiar Script de WhatsApp</span>
+          </button>
+        </div>
+
+        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest">Para Pequenos Negocios</span>
+              <div class="p-2 bg-cyan-500/10 text-cyan-400 rounded-lg"><i data-lucide="briefcase" class="w-5 h-5"></i></div>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2">Playbook Tactico para Comerciantes</h3>
+            <p class="text-xs text-slate-400 mb-4">Checklist operativo para Semana 1 y 2, acuerdos de flete comun y gestion de fiado.</p>
+            <div id="export-merchant-content" class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 font-sans space-y-2 max-h-72 overflow-y-auto"></div>
+          </div>
+          <button onclick="copyToClipboard('export-merchant-content')" class="mt-4 w-full py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center space-x-2 transition-all">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span>Copiar Checklist Operativo</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mt-16 border-t border-slate-800/80 py-8 bg-slate-950 text-slate-500 text-xs text-center">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <span class="font-bold text-slate-300">Sintesis Viva</span>
+        <span>*</span>
+        <span>Area Tematica: Sociedad y Economia</span>
+      </div>
+      <div>
+        <span>Desafio: Dificultad para transformar informacion dispersa en informacion util</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
