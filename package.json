@@ -1,0 +1,14 @@
+{
+  "name": "sintesis-viva",
+  "version": "2.0.0",
+  "description": "Síntesis Viva: Motor de Storytelling Socioeconómico y Acción Colectiva (JavaScript + Express + React + Tailwind + Vite)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server/src/index.js",
+    "dev:server": "node --watch server/src/index.js",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "test": "node --test server/tests/api.test.js"
+  }
+}

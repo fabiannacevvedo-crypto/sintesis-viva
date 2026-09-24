@@ -1,4 +1,4 @@
-﻿let simChart = null;
+let simChart = null;
 
 document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) {

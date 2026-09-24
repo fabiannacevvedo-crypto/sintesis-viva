@@ -1,0 +1,16 @@
+{
+  "name": "sintesis-viva-server",
+  "version": "1.0.0",
+  "description": "Backend API para Síntesis Viva con Express, Express-Validator, Relaciones y Eliminación Lógica",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1"
+  }
+}

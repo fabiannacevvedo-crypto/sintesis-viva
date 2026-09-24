@@ -1,77 +1,106 @@
-﻿# Arquitectura Técnica de Síntesis Viva
+# Arquitectura Técnica de Síntesis Viva (Stack JavaScript)
 
-Síntesis Viva implementa una arquitectura modular desacoplada diseñada para procesar fuentes de datos heterogéneas, ejecutar inferencia de causalidad cruzada y servir interfaces reactivas de alta velocidad.
+## 1. Diagrama de Arquitectura y Relaciones entre Modelos
 
-## 1. Diagrama de Arquitectura del Sistema
+```mermaid
+classDiagram
+    class Actor {
+        +String id
+        +String nombre
+        +String rol
+        +String territorio
+        +Boolean isDeleted
+        +Date deletedAt
+    }
+
+    class FuenteDato {
+        +String id
+        +String nombre
+        +String formato
+        +String categoria
+        +Boolean isDeleted
+        +Date deletedAt
+    }
+
+    class SenalDispersa {
+        +String id
+        +String actorId
+        +String fuenteId
+        +String contenido
+        +String tono
+        +String severidad
+        +Number impactoARS
+        +Boolean isDeleted
+        +Date deletedAt
+        +Date createdAt
+    }
+
+    class PatronCausal {
+        +String id
+        +String titulo
+        +String descripcion
+        +String severidad
+        +Array senalesIds
+        +Boolean isDeleted
+        +Date deletedAt
+    }
+
+    class Simulacion {
+        +Number tasaCompraColectiva
+        +Number fondoGarantia
+        +Number subsidioMunicipal
+        +Object proyecciones
+    }
+
+    Actor "1" --> "*" SenalDispersa : genera
+    FuenteDato "1" --> "*" SenalDispersa : transmite
+    SenalDispersa "*" --> "*" PatronCausal : fundamenta
+    PatronCausal "1" --> "*" Simulacion : alimenta
+```
+
+---
+
+## 2. Flujo de Datos y Capas del Sistema
 
 ```mermaid
 flowchart TD
-    subgraph Fuentes_Dispersas["Fuentes de Datos Heterogéneas"]
-        WA["Audios y Mensajes WhatsApp (JSON / Audio)"]
-        CSV["Planillas de Caja y Ventas (CSV Tabular)"]
-        PUB["Datos Abiertos y Estadísticas Públicas (REST JSON)"]
-        MIN["Minutas de Asambleas Barriales (Texto No Estructurado)"]
+    subgraph Frontend_React["Frontend (React 18 + Tailwind + Vite)"]
+        UI_STORY["StorytellingView.jsx\n(4 Actos y Afectados)"]
+        UI_INGESTA["IngestaRelacionalView.jsx\n(CRUD, Soft Delete, Trazabilidad)"]
+        UI_GRAFO["GrafoCausalView.jsx\n(Relaciones y Nodos)"]
+        UI_SIM["SimuladorView.jsx\n(Modelo 'What-If')"]
+        UI_EXP["ExportadorView.jsx\n(Dossier, WhatsApp, Playbook)"]
     end
 
-    subgraph Pipeline_Motor["Motor Causal y Narrativo (Python)"]
-        ING["DispersedDataIngestor\n(Normalización y Sincronización)"]
-        CAU["CausalCorrelationEngine\n(Detección de Patrones Cruzados y Grafo)"]
-        SIM["SocioeconomicSimulator\n(Modelo 'What-If' de Resiliencia)"]
-        STY["SocioeconomicStoryteller\n(Generador del Relato en 4 Actos)"]
-        EXP["PolymorphicDecisionExporter\n(Traductor Adaptativo de Audiencias)"]
+    subgraph Backend_Express["Backend (Node.js + Express)"]
+        VAL["express-validator\n(Validación de esquemas y tipos)"]
+        ROUT["Router Express (/api)\n(Rutas RESTful estructuradas)"]
+        CTRL["Controladores Modulares\n(Story, Señales, Causal, Simulador, Exportador)"]
+        DB["Capa de Modelos Relacionales\n(Población de claves foráneas y Soft Delete)"]
     end
 
-    subgraph Capa_Presentacion["Capa de Presentación y API"]
-        FLASK["Flask RESTful Core (app.py)"]
-        UI["Panel Interactivo SPA (Tailwind + Chart.js + Lucide)"]
-        OUT1["Dossier Político Ejecutivo (PDF/Text)"]
-        OUT2["Boletín y Script de Audio WhatsApp"]
-        OUT3["Playbook Táctico para Comerciantes"]
-    end
-
-    WA --> ING
-    CSV --> ING
-    PUB --> ING
-    MIN --> ING
-
-    ING --> CAU
-    CAU --> STY
-    CAU --> SIM
-    STY --> EXP
-    SIM --> EXP
-
-    CAU --> FLASK
-    SIM --> FLASK
-    EXP --> FLASK
-    FLASK --> UI
-    EXP --> OUT1
-    EXP --> OUT2
-    EXP --> OUT3
+    Frontend_React -->|Peticiones HTTP REST| VAL
+    VAL --> ROUT
+    ROUT --> CTRL
+    CTRL --> DB
 ```
 
-## 2. Componentes Principales
+---
 
-### 2.1 Módulo de Ingesta (`engine/ingestion.py`)
-Normaliza 4 tipos de datos heterogéneos:
-* **Señales Cualitativas (WhatsApp):** Extrae tono emocional, canal de procedencia y categorización temática.
-* **Métricas Cuantitativas (CSV):** Procesa series de tiempo de ventas nominales, costo de reposición, cálculo de margen comercial real y aceleración del fiado informal acumulado.
-* **Métricas Públicas (JSON):** Consolida datos del Sistema Integrado de Estadísticas Territoriales (SIET), identificando partidas presupuestarias subejecutadas.
-* **Registros Deliberativos (TXT):** Normaliza intervenciones orales en actas vecinales.
+## 3. Características Técnicas Implementadas
 
-### 2.2 Motor de Correlación Causal (`engine/causal_graph.py`)
-Cruza señales de diferentes dominios para inferir cuellos de botella no evidentes:
-* Cruza la alerta de desabastecimiento de WhatsApp con la inflación de fletes del gobierno abierto.
-* Demuestra que el alza nominal en ventas esconde una caída a terreno negativo del margen real (-0.9%).
-* Vincula la falta de liquidez barrial (fiado +190%) con la existencia de fondos públicos inactivos ($10.2M ARS).
+### 3.1 Modelado Relacional
+* **Actor ➡️ Señal (1:N):** Cada señal territorial se vincula explícitamente a un actor de la comunidad (Doña Marta, Taller Carlos, Comedor Laura, Secretaría Municipal).
+* **Fuente ➡️ Señal (1:N):** Identifica el canal de procedencia (WhatsApp, CSV, Datos Abiertos, Minutas).
+* **Señales ➡️ Patrones Causales (N:M):** Los patrones de correlación cruzada se construyen asociando múltiples señales territoriales.
 
-### 2.3 Simulador Socioeconómico (`engine/simulator.py`)
-Modela matemáticamente el impacto de 3 palancas:
-1. **Tasa de Compra Colectiva (\%):** Reduce el sobrecosto de fletes atomizados hasta en un 32%.
-2. **Fondo Rotatorio de Garantía (ARS):** Amortigua la morosidad vecinal y previene la quiebra del capital de trabajo.
-3. **Desbloqueo de Subsidio Municipal (\%):** Moviliza fondos públicos estancados para financiar rutas de transporte consolidado.
+### 3.2 Eliminación Lógica (Soft Delete)
+* En cumplimiento estricto con los requerimientos, los registros no se eliminan físicamente de la base de datos (`DELETE FROM`).
+* Se utiliza el patrón `isDeleted: true` junto con una marca de tiempo `deletedAt: ISOString`.
+* Las consultas operativas filtran automáticamente `!isDeleted`.
+* El endpoint de auditoría (`GET /api/senales?includeDeleted=true`) y el endpoint de restauración (`PATCH /api/senales/:id/restore`) permiten auditar y recuperar cualquier información comunitaria en caso de error.
 
-### 2.4 Exportador Polimórfico (`engine/polymorphic_exporter.py`)
-Genera 3 salidas personalizadas con la misma verdad fáctica subyacente:
-* **Dossier Ejecutivo:** Dirigido a intendencias y bancos con indicadores de retorno social de inversión (S-ROI).
-* **Guión de Audio para WhatsApp:** Formato coloquial, directo y convocante para vecinos y comedores.
-* **Playbook Táctico:** Hoja de ruta operativa semana a semana para los comerciantes.
+### 3.3 Validación de Datos con `express-validator`
+* **Validación de longitud y presencia:** El contenido de las señales debe contener entre 10 y 500 caracteres.
+* **Validación de catálogo y rangos:** La severidad debe ser `baja`, `media`, `alta` o `critica`. Las tasas del simulador se verifican en el rango estricto de `0` a `100%`.
+* **Respuestas consistentes:** En caso de discrepancia, se emite un código `400 Bad Request` con un listado detallado de campos y mensajes amigables.

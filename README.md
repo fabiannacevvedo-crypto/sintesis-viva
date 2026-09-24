@@ -1,118 +1,124 @@
-﻿# SÍNTESIS VIVA 🌟
+# SÍNTESIS VIVA 🌟
 ### Motor de Storytelling Socioeconómico y Acción Colectiva
 
 > **Área temática:** Sociedad y economía  
 > **Desafío:** Dificultad para transformar información dispersa en información útil  
+> **Stack Oficial:** JavaScript (ES6+), Express, Express-Validator, React (JSX), Tailwind CSS, Vite  
 > **Hackathon:** Edición Especial de Innovación e Impacto Social 2026
 
-[![Python](https://img.shields.io/badge/Python-3.14-blue.svg)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Framework-Flask_3.1-emerald.svg)](https://flask.palletsprojects.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-f7df1e.svg)](https://developer.mozilla.org/es/docs/Web/JavaScript)
+[![Express](https://img.shields.io/badge/Backend-Express_4.21-000000.svg)](https://expressjs.com/)
+[![Express-Validator](https://img.shields.io/badge/Validation-Express--Validator_7.2-crimson.svg)](https://express-validator.github.io/)
+[![React](https://img.shields.io/badge/Frontend-React_18.3-61dafb.svg)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Bundler-Vite_6.0-646cff.svg)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/UI-TailwindCSS_3.4-38bdf8.svg)](https://tailwindcss.com/)
-[![Chart.js](https://img.shields.io/badge/Analytics-Chart.js_4.4-f59e0b.svg)](https://www.chartjs.org/)
 [![License](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
 ---
 
 ## 📌 1. Visión y Problemática
 
-Organizaciones barriales, pequeños comercios, instituciones públicas y familias generan diariamente una enorme cantidad de información fragmentada: notas de voz y mensajes en grupos de WhatsApp, planillas de almacén con números desactualizados, boletines oficiales y datos de inflación en portales gubernamentales, y actas de asambleas que terminan sin acuerdos operativos.
+En nuestros barrios, pequeños comercios, familias, comedores e instituciones públicas generan todos los días datos fragmentados en formatos incompatibles:
+* **Audios y chats de WhatsApp:** Quejas de comerciantes sobre aumentos de fletes y desabastecimiento.
+* **Planillas y libretas de mostrador:** Registros de ventas donde la inflación enmascara márgenes reales negativos y la deuda vecinal ("fiado") se acumula sin control.
+* **Estadísticas de Datos Abiertos y Boletines Municipales:** Partidas millonarias de reactivación económica que vencen sin ejecutarse (más del 65%) porque las pymes no tienen balances auditados individuales.
+* **Actas de Asambleas Vecinales:** Reuniones deliberativas que culminan en frustración por falta de datos estructurados para peticionar formalmente.
 
-Cuando esta información no se conecta:
-* El comerciante **ignora la causa real de su pérdida de rentabilidad**.
-* Las familias **pagan sobreprecios** por intermediación y fletes atomizados.
-* Los municipios **subejecutan hasta el 68% de los fondos públicos** para pymes por falta de proyectos articulados con evidencia.
-
-**Síntesis Viva** rompe esta inercia convirtiendo el caos de datos dispersos en un **Grafo Causal Inteligente** y un relato humano en 4 actos con un **Simulador Socioeconómico 'What-If'** que guía hacia la acción colectiva.
-
----
-
-## 🎭 2. Metodología de Storytelling Estratégico
-
-1. **El Gancho (The Hook):** *Doña Marta y el Pan Invisible.* A las 5:15 AM los hornos de la panadería están apagados. El flete subió un 28%, el fiado vecinal superó los $630.000 ARS y en la web municipal hay $10.2M ARS sin ejecutar. Tres realidades a menos de 10 cuadras desconectadas por formatos incompatibles.
-2. **Problema & Consecuencias:** *La Trampa de los Datos Silenciados.* Las ventas nominales suben pero el margen real cae a -0.9%. El almacén se convierte en un banco informal sin liquidez y la asamblea comunitaria naufraga en quejas sin datos estructurados.
-3. **La Solución:** *El Puente de Inteligencia Colectiva.* Ingesta universal + Grafo Causal Cruzado + Motor de Resonancia que alinea los intereses de comerciantes, vecinos y autoridades.
-4. **El Flujo & Cierre:** *Acción en 4 Fases.* Ingesta ➡️ Grafo Causal ➡️ Simulación 'What-If' ➡️ Despliegue Polimórfico (Dossier Político + Boletín de Audio WhatsApp + Playbook del Almacenero).
+**Síntesis Viva** es una plataforma de **Inteligencia Colectiva y Storytelling Causal** que ingesta este caos multifuente y lo traduce en:
+1. **Relato Humano en 4 Actos** (Doña Marta y el Pan Invisible).
+2. **Grafo Causal con Modelos Relacionales** (Actores 1:N Señales 1:N Fuentes).
+3. **Eliminación Lógica (Soft Delete)** con auditoría y restauración.
+4. **Simulador 'What-If'** de compra colectiva y garantías solidarias.
+5. **Generador Polimórfico de Decisiones** (Dossier Técnico Municipal, Audio de WhatsApp Barrial y Playbook para Comerciantes).
 
 ---
 
-## 📂 3. Estructura del Repositorio
+## 🏗️ 2. Arquitectura del Repositorio (JavaScript + React + Vite + Express)
 
 ```bash
 sintesis-viva/
-├── app.py                     # Servidor Flask principal y API RESTful
-├── requirements.txt           # Dependencias del ecosistema Python
-├── README.md                  # Documentación central y guía rápida
-├── docs/                      # Documentación metodológica y técnica detallada
-│   ├── METODOLOGIA_STORYTELLING.md  # Marco narrativo estratégico en 4 actos
-│   ├── ARQUITECTURA_TECNICA.md      # Diagrama de flujo, grafo causal y pipelines
-│   └── PROPUESTA_DE_VALOR.md        # Diferenciales competitivos de hackathon
-├── engine/                    # Motores de análisis y síntesis inteligente
-│   ├── __init__.py
-│   ├── ingestion.py           # Ingesta y normalización de datos heterogéneos
-│   ├── causal_graph.py        # Grafo de correlaciones ocultas e inferencia
-│   ├── storyteller.py         # Orquestador del relato en 4 actos
-│   ├── simulator.py           # Simulador socioeconómico interactivo 'What-If'
-│   └── polymorphic_exporter.py# Adaptador de decisiones tri-partita
-├── data/
-│   ├── raw/                   # Datos crudos de ejemplo multifuente
-│   │   ├── whatsapp_community_notes.json  # Audios y textos territoriales
-│   │   ├── microbusiness_sales.csv        # Series temporales de comercios
-│   │   ├── public_indicators.json         # Estadísticas oficiales y fondos
-│   │   └── assembly_minutes.txt           # Minutas vecinales no estructuradas
-│   └── processed/             # Inteligencia sintetizada en caché
-├── static/
-│   ├── css/custom.css         # Estilos dark mode y glassmorphism
-│   └── js/app.js              # Controlador reactivo SPA y Chart.js
-└── templates/
-    └── index.html             # Interfaz web interactiva completa
+├── package.json                       # Scripts globales de ejecución y pruebas
+├── README.md                          # Documentación ejecutiva del proyecto
+├── server/                            # BACKEND: Node.js + Express
+│   ├── package.json
+│   ├── src/
+│   │   ├── index.js                   # Servidor Express y montaje de rutas
+│   │   ├── models/
+│   │   │   └── db.js                  # Modelos relacionales con Soft Delete
+│   │   ├── middlewares/
+│   │   │   └── validator.js           # Validaciones con express-validator
+│   │   ├── controllers/
+│   │   │   ├── storyController.js     # Metodología de Storytelling en 4 Actos
+│   │   │   ├── senalesController.js   # CRUD relacional, Soft Delete y Restore
+│   │   │   ├── causalController.js    # Grafo de correlaciones cruzadas
+│   │   │   ├── simulatorController.js # Modelo matemático 'What-If'
+│   │   │   └── exportController.js    # Adaptador polimórfico tri-partita
+│   │   └── routes/
+│   │       └── api.js                 # Definición de rutas RESTful
+│   └── tests/
+│       └── api.test.js                # Suite automatizada de pruebas backend
+├── client/                            # FRONTEND: Solo JavaScript + React + Tailwind + Vite
+│   ├── package.json
+│   ├── vite.config.js                 # Configuración de Vite con proxy hacia /api
+│   ├── tailwind.config.js             # Configuración de estilos y dark mode
+│   ├── postcss.config.js
+│   ├── index.html                     # HTML raíz
+│   └── src/
+│       ├── main.jsx                   # Punto de entrada de React
+│       ├── App.jsx                    # Contenedor principal y navegación
+│       ├── index.css                  # Estilos globales y utilidades Tailwind
+│       └── components/
+│           ├── StorytellingView.jsx   # 4 Actos narrativos y grupos afectados
+│           ├── IngestaRelacionalView.jsx # CRUD, express-validator y Soft Delete
+│           ├── GrafoCausalView.jsx    # Visualización de nodos y patrones
+│           ├── SimuladorView.jsx      # Controles 'What-If' y comparativas
+│           └── ExportadorView.jsx     # Exportación polimórfica (Dossier, WhatsApp, Playbook)
+└── docs/                              # Documentación estratégica
+    ├── METODOLOGIA_STORYTELLING.md    # Marco narrativo profundo
+    ├── ARQUITECTURA_TECNICA.md        # Diagramas de flujo y modelos
+    ├── PROPUESTA_DE_VALOR.md          # Factores diferenciales para la hackathon
+    └── PITCH_DECK_HACKATHON.md        # Guión de pitch (3 min), Q&A y Canvas
 ```
 
 ---
 
-## 🚀 4. Inicio Rápido en 2 Pasos
+## 🚀 3. Inicio Rápido en 2 Pasos
 
 ### Prerrequisitos
-Tener instalado Python 3.10 o superior (disponible en el sistema).
+Tener instalado Node.js 18+ (disponible en el sistema).
 
-### 1. Clonar o ingresar al directorio del proyecto:
+### 1. Iniciar el Servidor de Producción (Express + React Compilado):
 ```bash
-cd C:\Users\IPF-2026\.gemini\antigravity\scratch\sintesis-viva
+npm start
+```
+Abre tu navegador en: **`http://localhost:5000`**
+
+### 2. Modo Desarrollo (Hot-Reloading):
+En dos terminales separadas:
+```bash
+# Terminal 1: Servidor Express con auto-reload
+npm run dev:server
+
+# Terminal 2: Cliente React con Vite (puerto 3000 con proxy a :5000)
+npm run dev:client
 ```
 
-### 2. Instalar dependencias (opcional si ya están instaladas):
+### 3. Ejecutar Pruebas Automatizadas:
 ```bash
-pip install -r requirements.txt
+npm test
 ```
-
-### 3. Ejecutar la aplicación:
-```bash
-python app.py
-```
-Abre tu navegador en: **`http://127.0.0.1:5000`**
 
 ---
 
-## 🔌 5. Endpoints de la API REST
+## 🛡️ 4. Características de Ingeniería Destacadas
 
-* `GET /`: Panel de control interactivo SPA.
-* `GET /api/status`: Diagnóstico de salud y metadatos de la plataforma.
-* `GET /api/ingest/snapshot`: Resumen normalizado de las 4 fuentes heterogéneas.
-* `GET /api/causal/analysis`: Nodos, aristas e insights del grafo causal cruzado.
-* `GET /api/story/narrative`: Estructura narrativa completa en los 4 actos del storytelling.
-* `POST /api/simulator/run`: Ejecuta la proyección socioeconómica según las palancas enviadas.
-* `POST /api/export/decision_artifacts`: Genera en tiempo real el Dossier Político, el Boletín de WhatsApp y el Playbook Comercial.
+* **Express-Validator:** Middleware estricto que valida longitudes, tipos de datos y rangos de porcentaje (`0-100%`), devolviendo respuestas estructuradas `400 Bad Request` en caso de error.
+* **Eliminación Lógica (Soft Delete):** Ningún registro comunitario sensible se destruye permanentemente. Se marcan como `isDeleted: true` con marca de tiempo `deletedAt`, permitiendo consultas activas o auditorías históricas con opción de restauración (`PATCH /api/senales/:id/restore`).
+* **Relaciones entre Modelos:** Modelado relacional que vincula cada señal a un **Actor Territorial** (Doña Marta, Cooperativa, Municipio) y una **Fuente de Dato** (WhatsApp, CSV, Datos Abiertos, Asambleas).
+* **React + Vite + Tailwind (Solo JS):** Interfaz ultrarrápida, sin TypeScript, con diseño Dark Glassmorphism, animaciones y componentes desacoplados.
 
 ---
 
-## 💡 6. Herramientas Utilizadas y Beneficios
+## 💎 5. Propuesta de Valor Única
 
-* **Flask & Python 3.14:** Permite una ejecución instantánea, robusta y con mínima huella de memoria, ideal para entornos comunitarios.
-* **Pandas & NumPy:** Algoritmos vectorizados para detectar la pérdida real de margen y el estallido de deuda informal.
-* **Tailwind CSS & Lucide:** Interfaz moderna y accesible con estándares de diseño internacional tipo producto SaaS.
-* **Chart.js Reactivo:** Comparativas visuales en tiempo real que permiten a cualquier vecino o funcionario comprender el retorno de la inversión.
-
----
-
-## 💎 7. Propuesta de Valor
-
-> *"Transformar el ruido disperso de las economías barriales en un relato causal humano y un plan de acción colectiva medible, cerrando la brecha entre la angustia comunitaria y los recursos del Estado."*
+> **"Transformar el ruido disperso de las economías barriales en un relato causal humano y un plan de acción colectiva medible, cerrando la brecha entre la angustia comunitaria y los recursos del Estado."**
